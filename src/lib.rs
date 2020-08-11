@@ -18,7 +18,9 @@ mod are `PacketReader` and `PacketWriter`.
 
 extern crate byteorder;
 #[cfg(feature = "async")]
-extern crate tokio_io;
+extern crate tokio;
+#[cfg(feature = "async")]
+extern crate tokio_util;
 #[cfg(feature = "async")]
 #[macro_use]
 extern crate futures;
