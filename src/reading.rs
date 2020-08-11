@@ -1130,12 +1130,12 @@ pub mod async_api {
 			// (packets may span multiple pages, so reading one page
 			// doesn't always suffice to give us a valid packet)
 			loop {
-				if let Some(pck) = self.as_mut().base_pck_rdr.read_packet() {
+				if let Some(pck) = self.base_pck_rdr.read_packet() {
 					return Poll::Ready(Some(Ok(pck)));
 				}
-				let page = ready!(Pin::new(&mut self.as_mut().pg_rd).poll_next(cx)?);
+				let page = ready!(Pin::new(&mut self.pg_rd).poll_next(cx)?);
 				match page {
-					Some(page) => self.as_mut().base_pck_rdr.push_page(page)?,
+					Some(page) => self.base_pck_rdr.push_page(page)?,
 					None => return Poll::Ready(None),
 				}
 			}
